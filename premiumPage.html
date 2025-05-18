@@ -1,0 +1,66 @@
+<!-- premium.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Premium | LoveConnect</title>
+  <style>
+    body {
+      background-color: #0f1115;
+      font-family: 'Courier New', Courier, monospace;
+      color: #33ff99;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .premium-box {
+      background-color: #1a1d23;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(51, 255, 153, 0.2);
+      text-align: center;
+      max-width: 500px;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 10px 20px;
+      background-color: #ff4d4d;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #cc0000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="premium-box">
+    <h2>🔐 Premium Area Accessed</h2>
+    <p>Welcome to exclusive content, <span id="username"></span>!</p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (isLoggedIn !== 'true' || !user) {
+      alert("Access denied. Redirecting to login...");
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("username").innerText = user.name;
+    }
+
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+</html>

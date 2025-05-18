@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | LoveConnect</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      color: #fff;
+      text-align: center;
+      width: 350px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 0.5rem 0;
+      border-radius: 6px;
+      border: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 1rem;
+      background: #ff3f6c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .links {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .links a {
+      color: #fff;
+      text-decoration: underline;
+      margin: 0 0.5rem;
+      cursor: pointer;
+    }
+
+    #error {
+      color: yellow;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+
+    <div class="links">
+      <a href="create.html">Create Account</a> |
+      <a onclick="forgotPassword()">Forgot Password?</a>
+    </div>
+
+    <p id="error"></p>
+  </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+
+      if (!storedUser) {
+        document.getElementById('error').innerText = "No account found. Please sign up.";
+        return;
+      }
+
+      if (email === storedUser.email && password === storedUser.password) {
+        localStorage.setItem('isLoggedIn', 'true');
+        window.location.href = "premium.html";
+      } else {
+        document.getElementById('error').innerText = "Incorrect email or password.";
+      }
+    }
+
+    function forgotPassword() {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (storedUser) {
+        alert(`Password reminder:\nEmail: ${storedUser.email}\nPassword: ${storedUser.password}`);
+      } else {
+        alert("No account found. Please create one first.");
+      }
+    }
+  </script>
+
+</body>
+</html>

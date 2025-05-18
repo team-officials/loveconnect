@@ -1,0 +1,78 @@
+<!-- create.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Account | LoveConnect</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .signup-box {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      color: #fff;
+      text-align: center;
+      width: 350px;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 0.5rem 0;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 1rem;
+      background: #ff3f6c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="signup-box">
+    <h2>Create Account</h2>
+    <input type="text" id="name" placeholder="Full Name" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="createAccount()">Sign Up</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    function createAccount() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!name || !email || !password) {
+        document.getElementById('message').innerText = "All fields are required.";
+        return;
+      }
+
+      // Save user info to localStorage
+      const user = { name, email, password };
+      localStorage.setItem('user', JSON.stringify(user));
+      document.getElementById('message').innerText = "Account created! Redirecting to login...";
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
