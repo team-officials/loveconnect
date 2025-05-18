@@ -3,62 +3,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Premium | LoveConnect</title>
+  <title>Premium Access | LoveConnect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
-      background-color: #0f1115;
-      font-family: 'Courier New', Courier, monospace;
-      color: #33ff99;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
-    .premium-box {
-      background-color: #1a1d23;
+
+    .premium-container {
+      background-color: rgba(255, 255, 255, 0.05);
       padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(51, 255, 153, 0.2);
-      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+      width: 90%;
       max-width: 500px;
+      text-align: center;
     }
+
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      color: #ffd700;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+    }
+
+    .btc-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .btc-address {
+      word-break: break-all;
+      margin: 0.5rem 0;
+      font-family: monospace;
+      font-size: 0.95rem;
+      color: #ffcccb;
+    }
+
+    .qr-code {
+      width: 150px;
+      height: 150px;
+      margin: 1rem auto;
+      border: 3px solid #fff;
+      padding: 5px;
+      border-radius: 8px;
+    }
+
     button {
-      margin-top: 1rem;
-      padding: 10px 20px;
-      background-color: #ff4d4d;
-      border: none;
+      padding: 0.7rem 1.5rem;
+      background-color: #ff3f6c;
       color: white;
-      font-weight: bold;
+      border: none;
       border-radius: 6px;
+      font-weight: bold;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
+
     button:hover {
-      background-color: #cc0000;
+      background-color: #e6395a;
+    }
+
+    .logout {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-decoration: underline;
+      cursor: pointer;
+      color: #ccc;
+    }
+
+    .logout:hover {
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
-  <div class="premium-box">
-    <h2>🔐 Premium Area Accessed</h2>
-    <p>Welcome to exclusive content, <span id="username"></span>!</p>
-    <button onclick="logout()">Logout</button>
+  <div class="premium-container">
+    <h2>Unlock Premium Features 💎</h2>
+    <p>Send BTC to the address below to gain lifetime access.</p>
+
+    <div class="btc-card">
+      <img src="./image/qr-code-wallet.jpeg" alt="QR Code" class="qr-code" />
+      <p><strong>BTC Wallet Address:</strong></p>
+      <div class="btc-address" id="btcAddress">bc1q8wtfd28knuvq8z0uz3ktljszgn6fdrwshmh8h2</div>
+      <button onclick="copyAddress()">Copy Address</button>
+    </div>
+
+    <div class="logout" onclick="logout()">Log out</div>
   </div>
 
   <script>
+    // Protect page
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const user = JSON.parse(localStorage.getItem('user'));
-
-    if (isLoggedIn !== 'true' || !user) {
-      alert("Access denied. Redirecting to login...");
-      window.location.href = "login.html";
-    } else {
-      document.getElementById("username").innerText = user.name;
+    if (isLoggedIn !== 'true') {
+      alert('Unauthorized access. Redirecting to login.');
+      window.location.href = './index.html';
     }
 
     function logout() {
       localStorage.removeItem('isLoggedIn');
-      window.location.href = "login.html";
+      window.location.href = './index.html';
+    }
+
+    function copyAddress() {
+      const address = document.getElementById('btcAddress').innerText;
+      navigator.clipboard.writeText(address).then(() => {
+        alert("Wallet address copied!");
+      }).catch(() => {
+        alert("Failed to copy address.");
+      });
     }
   </script>
 
